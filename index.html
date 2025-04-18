@@ -1,54 +1,590 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth" style="scroll-padding-top:4rem">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sora Shaved Ice - Coming Soon</title>
-  <!-- Tailwind CSS CDN -->
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2/dist/tailwind.min.css" rel="stylesheet" />
+  <!-- Mailchimp (once) -->
+  <script id="mcjs">
+    !function(c,h,i,m,p){
+      m=c.createElement(h),p=c.getElementsByTagName(h)[0],
+      m.async=1,m.src=i,p.parentNode.insertBefore(m,p)
+    }(document,"script",
+      "https://chimpstatic.com/mcjs-connected/js/users/7bacf34c54f23e0889faa6959/3e17e9043dc71620390a8b969.js"
+    );
+  </script>
+
+  <!-- Meta -->
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Sora Shaved Ice: Boozy & Classic flavors coming soon to Tempe, AZ."/>
+  <meta property="og:title" content="Sora Shaved Ice – Pre‑Order"/>
+  <meta property="og:description" content="Reserve your classic or boozy shaved ice today!"/>
+  <meta property="og:image" content="https://yourdomain.com/assets/social-preview.png"/>
+  <meta name="twitter:card" content="summary_large_image"/>
+
+  <!-- Fonts + Tailwind config -->
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['"Fredoka One"', 'cursive'],
+            sans:    ['Poppins','ui-sans-serif','system-ui']
+          },
+          colors: {
+            background: '#111111',
+            cardBg:     '#222222',
+            'neon-pink':  '#FF3CAC',
+            'neon-green': '#39FF14'
+          },
+          boxShadow: {
+            glowPink: '0 0 12px rgba(255,60,100,0.8)'
+          },
+          animation: {
+            'fade-in': 'fadeIn 0.8s ease-out'
+          },
+        }
+      }
+    }
+  </script>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- AOS + KeenSlider CSS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://unpkg.com/keen-slider@6/keen-slider.min.css"/>
+<!-- in your <head>… -->
+  <style>
+    .btn-shine {
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s ease;
+    }
+    .btn-shine::after {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(
+        120deg,
+        transparent 0%,
+        rgba(255,255,255,0.4) 50%,
+        transparent 100%
+      );
+      transform: skewX(-20deg);
+      transition: left 0.5s ease;
+    }
+    .btn-shine:hover {
+      transform: scale(1.05);
+    }
+    .btn-shine:hover::after {
+      left: 100%;
+    }
+  </style>
+  
+  <style>
+    /* noise overlay */
+    body::before {
+      content:''; position:fixed; inset:0;
+      background:url('noise.png') repeat;
+      opacity:.04; pointer-events:none; z-index:50;
+    }
+    .hero-bg {
+      background:linear-gradient(135deg,rgba(255,60,100,.8),rgba(0,183,194,.8)),
+                 url('sora_shaved_ice_header_final.png') center/cover no-repeat;
+    }
+    .glow {
+      text-shadow:0 0 4px rgba(255,60,100,.8),0 0 10px rgba(255,60,100,.6);
+    }
+    .modal-backdrop {
+      backdrop-filter:blur(4px); background:rgba(0,0,0,0.4);
+    }
+  </style>
 </head>
-<body class="bg-white text-gray-800">
-  <!-- Header -->
-  <header class="bg-white py-8">
-    <div class="container mx-auto text-center px-4">
-      <!-- Logo: replace 'logo.png' with your hosted image URL -->
-      <img src="logo.png" alt="Sora Shaved Ice" class="mx-auto w-64" />
-      <h1 class="mt-4 text-3xl font-bold">Coming Soon to Tempe, AZ</h1>
-      <p class="mt-2 text-lg">Classic &amp; Alcohol-Infused Shaved Ice</p>
-    </div>
-  </header>
 
-  <!-- Main Content -->
-  <main class="container mx-auto px-4 py-8 space-y-12">
-    <!-- Pre-Order Form -->
-    <section id="preorder" class="text-center">
-      <h2 class="text-2xl font-semibold">Pre-Order Now</h2>
-      <p class="mt-2 mb-4">Help us get rolling! Reserve Sora Shaved Ice for your event and secure early-bird pricing.</p>
-      <!-- Embed your Google Form: replace the src with your form's embed link -->
-      <div class="w-full h-auto">
-        <iframe src="https://docs.google.com/forms/d/e/YOUR_FORM_ID/viewform?embedded=true" width="100%" height="700" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+<body class="bg-background font-sans text-white">
+
+  <!-- HERO + COUNTDOWN WRAPPER -->
+<section class="relative hero-bg overflow-hidden scroll‑pt‑16">
+  <span id="hero-typewriter"></span>
+  <!-- Particles & overlay -->
+  <div id="particles-js" class="absolute inset-0"></div>
+  <div class="absolute inset-0 bg-black/50"></div>
+
+ <!-- HERO CONTENT -->
+<div class="relative z-10 mx-auto max-w-3xl px-6 text-center">
+
+  <!-- Main headline -->
+  <h1 class="text-white text-4xl sm:text-5xl md:text-6xl font-bold mb-4">
+    Coming Soon to Tempe, AZ
+  </h1>
+
+  <!-- Sub‑headline -->
+  <p class="text-white text-lg mb-8">
+    Pre‑order your classic or boozy shaved ice today!
+  </p>
+
+  <!-- Reserve button -->
+  <a href="#preorder"
+     class="btn-shine inline-block bg-white text-black font-semibold
+            px-8 py-4 rounded-full shadow-lg
+            transform hover:scale-105 animate-bounce">
+    Reserve Your Scoop
+  </a>
+
+  <!-- Down‑arrow (now centered) -->
+  <div class="mt-8 animate-bounce flex justify-center">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white" fill="none"
+         viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+      <path stroke-linecap="round" stroke-linejoin="round"
+            d="M19 9l-7 7-7-7"/>
+    </svg>
+  </div>
+
+  <!-- Instagram follow button, below the arrow -->
+  <a href="https://instagram.com/sorashavedice" target="_blank"
+     class="mt-6 inline-flex items-center bg-gradient-to-r from-neon-pink to-neon-green
+            text-white font-semibold px-6 py-3 rounded-full shadow-lg
+            transform hover:scale-105 transition">
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="currentColor"
+         viewBox="0 0 24 24">
+      <path d="M7 2C4.2 2 2 4.2 2 7v10c0 2.8 2.2 5 5 5h10c2.8 0 5-2.2 5-5V7c0-2.8-2.2-5-5-5H7zm10 2c1.7 0 3 1.3 3 3v10c0 1.7-1.3 3-3 3H7c-1.7 0-3-1.3-3-3V7c0-1.7 1.3-3 3-3h10zm-5 3a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6zm4.5-.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/>
+    </svg>
+    Follow us on IG
+  </a>
+
+</div>
+
+
+  <!-- COUNTDOWN (same background) -->
+  <div class="relative z-10 border-t border-white/20">
+    <div id="countdown" class="py-6 flex flex-col sm:flex-row justify-center items-center
+                              space-y-4 sm:space-y-0 sm:space-x-6 px-6">
+      <div>
+        <span id="days"    class="block text-4xl font-bold text-white">00</span>
+        <span class="block text-sm text-white">Days</span>
       </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="text-center">
-      <h2 class="text-2xl font-semibold">About Us</h2>
-      <p class="mt-2">We’re two dreamers bringing next-level shaved ice to Tempe: classic for everyone, and boozy for the 21+ crowd. Launching Summer 2025!</p>
-    </section>
-
-    <!-- Flavor Preview -->
-    <section id="flavors" class="text-center">
-      <h2 class="text-2xl font-semibold">Flavor Sneak Peek</h2>
-      <p class="mt-2">Mango, Cotton Candy, Vodka Watermelon &amp; more—what’s your go-to?</p>
-    </section>
-  </main>
-
-  <!-- Footer -->
-  <footer class="bg-gray-100 py-4">
-    <div class="container mx-auto text-center text-sm text-gray-600 px-4">
-      <p>© 2025 Sora Shaved Ice LLC. All rights reserved.</p>
-      <p>Follow us on <a href="https://instagram.com/sorashavedice" class="text-pink-500 hover:underline">@sorashavedice</a></p>
+      <div>
+        <span id="hours"   class="block text-4xl font-bold text-white">00</span>
+        <span class="block text-sm text-white">Hours</span>
+      </div>
+      <div>
+        <span id="minutes" class="block text-4xl font-bold text-white">00</span>
+        <span class="block text-sm text-white">Minutes</span>
+      </div>
+      <div>
+        <span id="seconds" class="block text-4xl font-bold text-white">00</span>
+        <span class="block text-sm text-white">Seconds</span>
+      </div>
     </div>
+  </div>
+</section>
+
+  <!-- COLLEGE SPECIAL POPUP -->
+  <div id="student-deal" class="fixed inset-0 hidden items-center justify-center modal-backdrop z-50">
+    <div class="bg-white rounded-lg p-8 max-w-sm mx-auto text-center animate-fade-in">
+      <h2 class="font-display text-2xl text-black mb-2">College Special!</h2>
+      <p class="text-gray-800 mb-4">Show your student ID and get <strong>20% off</strong> your first pre‑order.</p>
+      <button id="close-deal" class="bg-black text-white px-4 py-2 rounded-lg hover:opacity-90 transition">
+        Got it!
+      </button>
+    </div>
+  </div>
+<!-- Flavors-Carousel -->
+  <section id="Flavors-Carousel"
+  class="py-16"
+  style="background-color: #e3429d;"
+  data-aos="fade-up">
+    <div class="mx-auto max-w-4xl px-6">
+      <h2 class="font-display text-3xl text-neon-pink text-center mb-8" data-aos="fade-up">
+        Explore Our Flavors
+      </h2>
+  
+      <div class="relative">
+        <button id="prev" class="absolute left-0 top-1/2 transform -translate-y-1/2 bg-primary text-white p-2 rounded-full z-10">‹</button>
+        <button id="next" class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-primary text-white p-2 rounded-full z-10">›</button>
+        <div class="keen-slider">
+          <!-- Slide 1 -->
+          <div class="keen-slider__slide p-4">
+            <div class="group bg-white rounded-lg overflow-hidden
+                        transform transition duration-300
+                        hover:scale-105 hover:shadow-glowPink">
+              <!-- image grows just a bit too -->
+              <div class="w-full h-48 sm:h-56 md:h-64 lg:h-72 xl:h-80
+                          overflow-hidden">
+                <img
+                  src="tokyo_tide.png"
+                  alt="Tokyo Tide"
+                  class="w-full h-full object-cover object-center
+                         transform transition duration-300 group-hover:scale-110"
+                />
+              </div>
+              <div class="p-4 text-center">
+                <h3 class="font-semibold mb-1">Tokyo Tide</h3>
+                <p class="text-sm text-gray-600 mb-2">Vodka, yuzu &amp; mint</p>
+                <p class="font-bold">$8</p>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Slide 2 -->
+          <div class="keen-slider__slide p-4">
+            <div
+              class="group bg-white rounded-lg overflow-hidden
+                     transform transition duration-300
+                     hover:scale-105 hover:shadow-glowPink"
+            >
+              <!-- Image container -->
+              <div class="w-full h-48 sm:h-56 md:h-64 lg:h-72 xl:h-80 overflow-hidden">
+                <img
+                  src="vodka_watermelon.png"
+                  alt="Vodka Watermelon"
+                  class="w-full h-full object-cover object-center
+                         transform transition duration-300 group-hover:scale-110"
+                />
+              </div>
+              <!-- Info -->
+              <div class="p-4 text-center">
+                <h3 class="font-semibold mb-1">Vodka Watermelon</h3>
+                <p class="text-sm text-gray-600 mb-2">A juicy kick for 21+ adventures</p>
+                <p class="font-bold">$8</p>
+              </div>
+            </div>
+          </div>
+          
+  
+          <!-- Slide 3 -->
+          <div class="keen-slider__slide p-4">
+            <div
+              class="group bg-white rounded-lg overflow-hidden
+                     transform transition duration-300
+                     hover:scale-105 hover:shadow-glowPink"
+            >
+              <!-- Image container -->
+              <div class="w-full h-48 sm:h-56 md:h-64 lg:h-72 xl:h-80 overflow-hidden">
+                <img
+                  src="cyo.png"
+                  alt="Create Your Own"
+                  class="w-full h-full object-cover object-center
+                         transform transition duration-300 group-hover:scale-110"
+                />
+              </div>
+              <!-- Info -->
+              <div class="p-4 text-center">
+                <h3 class="font-semibold mb-1">Create Your Own</h3>
+                <p class="text-sm text-gray-600 mb-2">Pick any combo—your taste, your rules.</p>
+                <p class="font-bold">$8</p>
+              </div>
+            </div>
+          </div>
+          
+  </section>
+
+  <!-- CLASSIC FLAVORS -->
+  <section id="classic-flavors" class="py-16 bg-black" data-aos="fade-up">
+    <div class="mx-auto max-w-4xl px-6 text-center">
+      <h2 class="p-4 bg-gray-800 rounded-full" font-display text- 6x2 text-white mb-6">Classic Flavors</h2>
+      <img src="Classic_Menu.png" alt="Classic Flavors" class="mx-auto mb-10 w-full max-w-lg"/>
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-6">
+        <div class="p-4 bg-gray-800 rounded-lg"><h3>Mango</h3><p class="text-sm">Sweet tropical bliss.</p></div>
+        <div class="p-4 bg-gray-800 rounded-lg"><h3>Strawberry</h3><p class="text-sm">Bright &amp; juicy.</p></div>
+        <div class="p-4 bg-gray-800 rounded-lg"><h3>Blue Raspberry</h3><p class="text-sm">Bold berry burst.</p></div>
+        <div class="p-4 bg-gray-800 rounded-lg"><h3>Lemon</h3><p class="text-sm">Zesty refreshment.</p></div>
+        <div class="p-4 bg-gray-800 rounded-lg"><h3>Watermelon</h3><p class="text-sm">Cool summer classic.</p></div>
+        <div class="p-4 bg-gray-800 rounded-lg"><h3>Cotton Candy</h3><p class="text-sm">Nostalgic sweetness.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SORA SPECIALS -->
+  <section id="sora-specials" class="py-16 bg-black" data-aos="fade-up">
+    <div class="mx-auto max-w-4xl px-6 text-center">
+      <h2 class="p-4 bg-gray-800 rounded-full font-display text-3xl text-neon-pink mb-4">Sora Specials</h2>
+      <img src="Special_Cocktails.png" alt="Sora Specials" class="mx-auto mb-8 w-full max-w-lg"/>
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-6">
+        <div class="p-4 bg-gray-800 rounded-lg shadow"><h3>Sora Sunset</h3><p class="text-sm">Tequila, blood orange &amp; mango.</p></div>
+        <div class="p-4 bg-gray-800 rounded-lg shadow"><h3>Tokyo Tide</h3><p class="text-sm">Vodka, yuzu &amp; mint.</p></div>
+        <div class="p-4 bg-gray-800 rounded-lg shadow"><h3>Cherry Blossom Buzz</h3><p class="text-sm">Gin, cherry &amp; jasmine.</p></div>
+        <div class="p-4 bg-gray-800 rounded-lg shadow"><h3>Hibiscus Highball</h3><p class="text-sm">Rum, hibiscus &amp; lime.</p></div>
+        <div class="p-4 bg-gray-800 rounded-lg shadow"><h3>Lavender Lemonade Luxe</h3><p class="text-sm">Gin, lavender &amp; lemon.</p></div>
+        <div class="p-4 bg-gray-800 rounded-lg shadow"><h3>Midnight Berry Bliss</h3><p class="text-sm">Tequila, blackberry &amp; mint.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="About"
+  class="py-16"
+  style="background-color: #e3429d;"
+  data-aos="fade-up">
+    <div class="mx-auto max-w-4xl px-6 text-center">
+      <h2 class="font-display text-3xl text-neon-pink mb-4">Our Story</h2>
+      <p class="text-lg text-white">
+        Born from a love of fun, flavor, and good times in the Arizona sun, Sora Shaved Ice brings college‑fuelled energy and craft syrups together. We blend nostalgic classics with daring boozy twists—perfect for weddings, parties, and campus takeovers.
+      </p>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="Testimonials"
+  class="py-16"
+  style="background-color: #e3429d;"
+  data-aos="fade-up">
+    <div class="mx-auto max-w-4xl px-6 space-y-8">
+      <h2 class="font-display text-3xl text-neon-pink text-center mb-8">Testimonials</h2>
+      <blockquote class="bg-white p-6 rounded-lg shadow">
+        <p class="italic text-gray-800">“The Mango Margarita shaved ice was a total game‑changer at our graduation party! Everyone couldn’t stop talking about it.”</p>
+        <footer class="mt-4 text-sm text-gray-600">— Alex R., ASU ’25</footer>
+      </blockquote>
+      <blockquote class="bg-white p-6 rounded-lg shadow">
+        <p class="italic text-gray-800">“Amazing service and the Boozy lineup made our wedding stand out. Sora Shaved Ice is now a family tradition!”</p>
+        <footer class="mt-4 text-sm text-gray-600">— Jamie & Sam, May 2025</footer>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq"
+  class="py-16"
+  style="background-color: #e3429d;"
+  data-aos="fade-up">
+    <div class="mx-auto max-w-4xl px-6">
+      <h2 class="font-display text-3xl text-neon-pink text-center mb-8">FAQ</h2>
+      <dl class="space-y-6 text-white">
+        <div>
+          <dt class="font-semibold">Do you need a liquor license?</dt>
+          <dd>We carry our own license for private events. Just provide safe space for our mobile cart and IDs at the ready!</dd>
+        </div>
+        <div>
+          <dt class="font-semibold">What is the minimum booking?</dt>
+          <dd>We require at least 30 servings (classic or boozy mix) to secure your date.</dd>
+        </div>
+        <div>
+          <dt class="font-semibold">How far do you travel?</dt>
+          <dd>We cover Tempe and surrounding areas up to a 15 mi radius. Reach out if you’re farther out—we’ll make it happen!</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+  <!-- HOW IT WORKS -->
+<section id="how-it-works" class="py-16 bg-black text-white" data-aos="fade-up">
+  <div class="mx-auto max-w-5xl px-6">
+    <h2 class="font-display text-3xl text-white text-center mb-12">How It Works</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      
+      <!-- Boozy Events -->
+      <div class="bg-cardBg rounded-lg p-6 text-center shadow-lg hover:shadow-glowPink transition">
+        <div class="mb-4">
+          <!-- icon -->
+          <svg class="mx-auto h-12 w-12 text-neon-pink" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 8c-1.657 0-3-1.343-3-3s1.343-3 3-3 3 1.343 3 3-1.343 3-3 3zM4 21v-2a4 4 0 014-4h8a4 4 0 014 4v2"/>
+          </svg>
+        </div>
+        <h3 class="font-semibold text-xl mb-2">Book Boozy Events</h3>
+        <p class="text-white mb-4">
+          We bring the party to you—perfect for festivals (Ostrich Fest, Raceway), weddings, campus events, and more.  
+          <strong>Must be 21+.</strong>
+        </p>
+        <a href="#preorder"
+           class="inline-block bg-black text-white font-semibold px-4 py-2 rounded-full shadow-glowPink
+                  hover:shadow-glowGreen transform hover:scale-105 transition">
+          Get Started
+        </a>
+      </div>
+      
+      <!-- Find Us Locally -->
+      <div class="bg-cardBg rounded-lg p-6 text-center shadow-lg hover:shadow-glowGreen transition">
+        <div class="mb-4">
+          <!-- icon -->
+          <svg class="mx-auto h-12 w-12 text-neon-green" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 21l-8-5V8a4 4 0 014-4h8a4 4 0 014 4v8l-8 5z"/>
+          </svg>
+        </div>
+        <h3 class="font-semibold text-xl mb-2">Find Us Locally</h3>
+        <p class="text-whitemb-4">
+          Classic (non‑boozy) shaved ice is coming soon to daily pop‑ups around Tempe—stay tuned to our Instagram for times & locations!
+        </p>
+        <a href="https://instagram.com/sorashavedice" target="_blank"
+           class="inline-block bg-neon-green text-white font-semibold px-4 py-2 rounded-full shadow-glowGreen
+                  hover:shadow-glowPink transform hover:scale-105 transition">
+          Follow for Updates
+        </a>
+      </div>
+      
+      <!-- Upcoming Appearances -->
+      <div class="bg-cardBg rounded-lg p-6 text-center shadow-lg hover:shadow-pink transition">
+        <div class="mb-4">
+          <!-- icon -->
+          <svg class="mx-auto h-12 w-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V9H3v10a2 2 0 002 2z"/>
+          </svg>
+        </div>
+        <h3 class="font-semibold text-xl mb-2">Upcoming Appearances</h3>
+        <ul class="text-white space-y-2 mb-4">
+          <li>🪶 Ostrich Festival – TBA</li>
+          <li>🏁 Raceway Pop‑Up – TBA</li>
+          <li>🎉 Fall Campus Takeover – TBA</li>
+        </ul>
+        <a href="#contact"
+           class="inline-block bg-neon-pink text- font-semibold px-4 py-2 rounded-full shadow-glowPink
+                  hover:shadow-glowGreen transform hover:scale-105 transition">
+          Request Us at Your Event
+        </a>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+
+  <!-- PRE‑ORDER / STRIPE -->
+  <section id="preorder" class="py-16 bg-black text-white" data-aos="fade-up">
+    <div class="mx-auto max-w-2xl px-4 text-center">
+      <h2 class="font-display text-3xl mb-6">Pre‑Order &amp; Book Now</h2>
+      <button id="checkout-button"
+              class="bg-neon-pink text-black px-8 py-3 rounded-full font-semibold shadow-lg hover:shadow-glowGreen transform hover:scale-105 transition">
+        Pay with Card to Book Today
+      </button>
+    </div>
+  
+
+   <!-- 2) Your Google Form, re‑inserted -->
+   <div class="mt-8 border rounded-lg overflow-hidden shadow-lg">
+    <iframe
+      src="https://docs.google.com/forms/d/e/1FAIpQLSdR9_VKKVQKUe_nudY8FKBV66RrLFYU_2JOG2vKr_UeJ0TcLw/viewform?embedded=true"
+      width="100%" height="800" frameborder="0" marginheight="0" marginwidth="0"
+    >
+      Loading…
+    </iframe>
+  </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <div id="mc_embed_shell">
+    <link href="//cdn-images.mailchimp.com/embedcode/classic-061523.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+/* center the MC form */
+#mc_embed_signup {
+  background: #0000;
+  width: 100% !important;     /* let it responsively shrink on mobile */
+  max-width: 600px !important;/* never exceed 600px */
+  margin: 0 auto !important;  /* center it */
+}
+ /* make all form text white */
+ #mc_embed_signup h2,
+    #mc_embed_signup label,
+    #mc_embed_signup .indicates-required,
+    #mc_embed_signup .asterisk,
+    #mc_embed_signup .response {
+      color: #000000 !important;
+    }
+
+    /* style the email input and make its text white */
+    #mc_embed_signup input {
+      background: #222 !important;
+      color: #fff !important;
+      border-color: #555 !important;
+    }
+
+    /* style the subscribe button */
+    #mc_embed_signup .button {
+      background: #39FF14 !important;   /* neon‑green */
+      color: #000 !important;
+      border: none !important;
+      cursor: pointer;
+    }
+    #mc_embed_signup .button:hover {
+      opacity: .85;
+    }
+  </style>
+</style>
+<div id="mc_embed_signup">
+  <form action="https://app.us4.list-manage.com/subscribe/post?u=7bacf34c54f23e0889faa6959&amp;id=bed5c5d1b8&amp;f_id=004a1ceaf0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank">
+      <div id="mc_embed_signup_scroll"><h2>Subscribe</h2>
+          <div class="indicates-required"><span class="asterisk">*</span> indicates required</div>
+          <div class="mc-field-group"><label for="mce-EMAIL">Email Address <span class="asterisk">*</span></label><input type="email" name="EMAIL" class="required email" id="mce-EMAIL" required="" value=""></div>
+      <div id="mce-responses" class="clear foot">
+          <div class="response" id="mce-error-response" style="display: none;"></div>
+          <div class="response" id="mce-success-response" style="display: none;"></div>
+      </div>
+  <div aria-hidden="true" style="position: absolute; left: -5000px;">
+      /* real people should not fill this in and expect good things - do not remove this or risk form bot signups */
+      <input type="text" name="b_7bacf34c54f23e0889faa6959_bed5c5d1b8" tabindex="-1" value="">
+  </div>
+      <div class="optionalParent">
+          <div class="clear foot">
+              <input type="submit" name="subscribe" id="mc-embedded-subscribe" class="button" value="Subscribe">
+              <p style="margin: 0px auto;"><a href="http://eepurl.com/jcSSnQ" title="Mailchimp - email marketing made easy and fun"><span style="display: inline-block; background-color: transparent; border-radius: 4px;"><img class="refferal_badge" src="https://digitalasset.intuit.com/render/content/dam/intuit/mc-fe/en_us/images/intuit-mc-rewards-text-dark.svg" alt="Intuit Mailchimp" style="width: 220px; height: 40px; display: flex; padding: 2px 0px; justify-content: center; align-items: center;"></span></a></p>
+          </div>
+      </div>
+  </div>
+</form>
+</div>
+<script type="text/javascript" src="//s3.amazonaws.com/downloads.mailchimp.com/js/mc-validate.js"></script><script type="text/javascript">(function($) {window.fnames = new Array(); window.ftypes = new Array();fnames[0]='EMAIL';ftypes[0]='email';fnames[1]='FNAME';ftypes[1]='text';fnames[2]='LNAME';ftypes[2]='text';fnames[4]='PHONE';ftypes[4]='phone';fnames[5]='BIRTHDAY';ftypes[5]='birthday';fnames[6]='COMPANY';ftypes[6]='text';}(jQuery));var $mcj = jQuery.noConflict(true);</script></div>
+
+
+  <!-- FOOTER -->
+  <footer class="py-12 bg-gray-100 text-center">
+    <p class="text-gray-700 mb-2">Questions? <a href="mailto:hello@sorashavedice.com" class="text-neon-pink">hello@sorashavedice.com</a></p>
+    <p class="text-gray-500">© 2025 Sora Shaved Ice • Built with ❤️ in Tempe</p>
   </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script src="https://unpkg.com/keen-slider@6/keen-slider.min.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://js.stripe.com/v3/"></script>
+
+  <script>
+    // Typewriter
+    const txt='', el=document.getElementById('hero-typewriter');
+    let idx=0;
+    (function type(){ if(idx<=txt.length) el.innerText=txt.slice(0,idx++), setTimeout(type,80); })();
+
+    // Countdown
+    const launch=new Date("2025-05-22T12:00:00").getTime();
+    setInterval(()=>{
+      const now=Date.now(), dist=launch-now;
+      if(dist<0) return;
+      document.getElementById('days').innerText    =String(Math.floor(dist/86400000)).padStart(2,'0');
+      document.getElementById('hours').innerText   =String(Math.floor(dist/3600000 %24)).padStart(2,'0');
+      document.getElementById('minutes').innerText =String(Math.floor(dist/60000   %60)).padStart(2,'0');
+      document.getElementById('seconds').innerText =String(Math.floor(dist/1000    %60)).padStart(2,'0');
+    },1000);
+
+    // College deal
+    setTimeout(()=>{
+      document.getElementById('student-deal').classList.replace('hidden','flex');
+    },5000);
+    document.getElementById('close-deal').onclick = ()=> {
+      document.getElementById('student-deal').classList.add('hidden');
+    };
+
+    // particles.js
+    particlesJS('particles-js',{ particles:{ number:{value:50}, color:{value:['#FF3CAC','#00B7C2','#FFFFFF']},
+      shape:{type:'circle'}, opacity:{value:.6}, size:{value:4}, move:{speed:1,direction:'bottom',out_mode:'out'} }});
+
+    // AOS
+    AOS.init({ duration:800, once:true });
+
+    // KeenSlider
+    const slider=new KeenSlider(".keen-slider",{ loop:true, slides:{ perView:1.2, spacing:16 },
+      breakpoints:{ "(min-width:640px)":{ slides:{ perView:2.2, spacing:24 }},
+                   "(min-width:1024px)":{ slides:{ perView:3, spacing:32 }}} });
+    document.getElementById('prev').onclick = ()=>slider.prev();
+    document.getElementById('next').onclick = ()=>slider.next();
+
+    // Stripe Checkout
+    const stripe = Stripe('pk_live_YOUR_PUBLISHABLE_KEY_HERE');
+    document.getElementById('checkout-button').onclick = ()=> {
+      stripe.redirectToCheckout({
+        lineItems:[{ price:'price_XXXXXXXXXXXXXXXX', quantity:1 }],
+        mode:'payment',
+        successUrl:window.location.origin+'/success.html',
+        cancelUrl: window.location.origin+'/cancel.html'
+      }).then(res=>{ if(res.error) console.error(res.error.message); });
+    };
+  </script>
 </body>
 </html>
